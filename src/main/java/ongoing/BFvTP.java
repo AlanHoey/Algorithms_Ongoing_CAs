@@ -101,7 +101,39 @@ public class BFvTP {
         return new int[]{best_start, best_end};
     }
 
+    //Problem 4:
+    //Given a string, reverse only the vowels in the string and return it. Note: Strings cannot be edited in Java. You may wish to convert this to an array of characters before beginning your process, then convert it to a String again at the end.
+    //Vowels should switch places – the first vowel should become the last vowel; the last vowel should become the first vowel.
+    //Only vowels should be reordered. All other characters should remain in their original position.
 
+    public static String reverseVowelOrderBF(String word) {
+        char[] vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        char[] result_word = word.toCharArray();
+        char[] stored_vowels = new char[word.length()];
+
+        int count = 0;
+        for (int i = 0; i < result_word.length; i++) {
+            for (int j = 0; j < vowels.length; j++) {
+                if (result_word[i] == vowels[j]) {
+                    stored_vowels[count] = result_word[i];
+                    count++;
+                    break;
+                }
+            }
+        }
+
+        int next = count - 1;
+        for (int i = 0; i < result_word.length; i++) {
+            for (int j = 0; j < vowels.length; j++) {
+                if (result_word[i] == vowels[j]) {
+                    result_word[i] = stored_vowels[next];
+                    next--;
+                    break;
+                }
+            }
+        }
+        return new String(result_word);
+    }
 
 
 }
