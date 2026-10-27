@@ -60,6 +60,46 @@ public class BFvTP {
     }
 
 
+    //Problem 3:
+    //Given an array of positive integers and a target value, identify the shortest possible contiguous subarray whose sum is at least the target.
+    //Find the shortest valid subarray fulfilling the requirement.
+    //Where a valid solution is found, return an array containing the identified start and end positions.
+    //Where no valid solution is found, return an array containing 0
+
+    public static int[] shortestSubarrayBF(
+            int[] input_array, int target_sum) {
+
+        int shortest_length = input_array.length + 1;
+        int best_start = -1;
+        int best_end = -1;
+        for (int start_index = 0;
+             start_index < input_array.length;
+             start_index++) {
+
+            long current_sum = 0;
+
+            for (int end_index = start_index;
+                 end_index < input_array.length;
+                 end_index++) {
+                current_sum += input_array[end_index];
+
+                if (current_sum > target_sum) {
+                    int current_length = end_index - start_index + 1;
+
+                    if (current_length <= shortest_length) {
+                        shortest_length = current_length;
+                        best_start = start_index;
+                        best_end = end_index;
+                    }
+                    break;
+                }
+            }
+        }
+        if (best_start == -1) {
+            return new int[]{0};
+        }
+        return new int[]{best_start, best_end};
+    }
 
 
 
