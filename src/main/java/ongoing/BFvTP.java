@@ -40,6 +40,28 @@ public class BFvTP {
     }
 
 
+    //Problem 2:
+        //Given a supplied String, determine whether it is a palindrome (case-insensitive).
+        //Note: this should ignore punctuation and spaces.
+        //Compare only those characters that should be considered.
+        //Return true if the String is a palindrome, false otherwise
+
+    public static boolean palindromeBF(String data) {
+        for (int i = 0; i < data.length(); i++) {
+            char first = data.charAt(i);
+            char last = data.charAt(data.length() - 1 - i);
+
+            if (first != last) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+
+
 
 
 }
