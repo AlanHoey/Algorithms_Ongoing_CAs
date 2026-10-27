@@ -8,6 +8,7 @@ public class BFvTP {
         // Given two supplied arrays of ints, determine if the contents are equal (this can be in the same or different order).
         //Return true if the arrays are equal, false otherwise.
 
+    //Brute Force Approach:
     public static boolean compareArrayContentBF(
             int[] array_1, int[] array_2) {
 
@@ -39,6 +40,31 @@ public class BFvTP {
         return true;
     }
 
+    //Two-Pointer Approach:
+    public static boolean comparrArrayContentTP(
+            int[] array_1, int[] array_2) {
+
+        if (array_1.length != array_2.length) {
+            return false;
+        }
+
+        int[] sorted_1 = Arrays.copyOf(array_1, array_1.length);
+        int[] sorted_2 = Arrays.copyOf(array_2, array_2.length);
+
+        Arrays.sort(sorted_1);
+        Arrays.sort(sorted_2);
+
+        int first = 0;
+        int second = 0;
+
+        while (first < sorted_1.length && second < sorted_2.length){
+            if (sorted_1[first] != sorted_2[second]) {
+                return false;
+            }
+            first++;
+            second++;
+        }
+
 
     //Problem 2:
         //Given a supplied String, determine whether it is a palindrome (case-insensitive).
@@ -46,6 +72,7 @@ public class BFvTP {
         //Compare only those characters that should be considered.
         //Return true if the String is a palindrome, false otherwise
 
+    //Brute Force Approach:
     public static boolean palindromeBF(String data) {
         for (int i = 0; i < data.length(); i++) {
             char first = data.charAt(i);
@@ -59,6 +86,8 @@ public class BFvTP {
         return true;
     }
 
+    //Two-Pointer Approach:
+
 
     //Problem 3:
     //Given an array of positive integers and a target value, identify the shortest possible contiguous subarray whose sum is at least the target.
@@ -66,6 +95,7 @@ public class BFvTP {
     //Where a valid solution is found, return an array containing the identified start and end positions.
     //Where no valid solution is found, return an array containing 0
 
+    //Brute Force Approach:
     public static int[] shortestSubarrayBF(
             int[] input_array, int target_sum) {
 
@@ -101,11 +131,14 @@ public class BFvTP {
         return new int[]{best_start, best_end};
     }
 
+    //Two-Pointer Approach:
+
     //Problem 4:
     //Given a string, reverse only the vowels in the string and return it. Note: Strings cannot be edited in Java. You may wish to convert this to an array of characters before beginning your process, then convert it to a String again at the end.
     //Vowels should switch places – the first vowel should become the last vowel; the last vowel should become the first vowel.
     //Only vowels should be reordered. All other characters should remain in their original position.
 
+    //Brute Force Approach:
     public static String reverseVowelOrderBF(String word) {
         char[] vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
         char[] result_word = word.toCharArray();
@@ -134,6 +167,8 @@ public class BFvTP {
         }
         return new String(result_word);
     }
+
+    //Two-Pointer Approach:
 
 
 }
