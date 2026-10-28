@@ -57,13 +57,16 @@ public class BFvTP {
         int first = 0;
         int second = 0;
 
-        while (first < sorted_1.length && second < sorted_2.length){
+        while (first < sorted_1.length && second < sorted_2.length) {
             if (sorted_1[first] != sorted_2[second]) {
                 return false;
             }
             first++;
             second++;
         }
+
+        return true;
+    }
 
 
     //Problem 2:
@@ -209,7 +212,39 @@ public class BFvTP {
     }
 
     //Two-Pointer Approach:
+        public static String reverseVowelOrderTP(String word) {
+            char[] vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+            char[] result_word = word.toCharArray();
 
+            int left = 0;
+            int right = result_word.length - 1;
+
+            while (left < right) {
+                boolean left_vowel = false;
+                boolean right_vowel = false;
+
+                for (int i = 0; i < vowels.length; i++) {
+                    if (result_word[left] == vowels[i]) {
+                        left_vowel = true;
+                    }
+                    if (result_word[right] == vowels[i]) {
+                        right_vowel = true;
+                    }
+                }
+                if (!left_vowel) {
+                    left++;
+                } else if (!right_vowel) {
+                    right--;
+                } else {
+                    char temporary = result_word[left];
+                    result_word[left] = result_word[right];
+                    result_word[right] = temporary;
+                    left++;
+                    right--;
+                }
+            }
+            return new String(result_word);
+        }
 
 }
 
