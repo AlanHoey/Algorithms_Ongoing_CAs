@@ -144,6 +144,34 @@ public class BFvTP {
     }
 
     //Two-Pointer Approach:
+        public static int[] shortestSubarrayTP(
+        int[] input_array, int target_sum) {
+
+            int left = 0;
+            long current_sum = 0;
+            int shortest_length = input_array.length + 1;
+            int best_start = -1;
+            int best_end = -1;
+
+            for (int right = 0; right < input_array.length; right++){
+                current_sum += input_array[right];
+                while (left <= right && current_sum > target_sum) {
+                    int current_length = right - left + 1;
+
+                    if (current_length < shortest_length) {
+                        shortest_length = current_length;
+                        best_start = left;
+                        best_end = right;
+                    }
+                    current_sum -= input_array[left];
+                    left++;
+                }
+            }
+            if (best_start == -1) {
+                return new int[]{0};
+            }
+            return new int[]{best_start, best_end};
+        }
 
     //Problem 4:
     //Given a string, reverse only the vowels in the string and return it. Note: Strings cannot be edited in Java. You may wish to convert this to an array of characters before beginning your process, then convert it to a String again at the end.
