@@ -4,11 +4,16 @@ import java.util.Arrays;
 
 public class BFvTP {
 
-    // Problem 1:
-        // Given two supplied arrays of ints, determine if the contents are equal (this can be in the same or different order).
-        //Return true if the arrays are equal, false otherwise.
-
     //Brute Force Approach:
+    /** Problem 1:
+     * Checks whether two arrays contain the same values and counts.
+     * The order of the values does not matter.
+
+     * @param array_1 the first non-null array
+     * @param array_2 the second non-null array
+     * @return true if the contents match, otherwise false
+     * */
+
     public static boolean compareArrayContentBF(
             int[] array_1, int[] array_2) {
 
@@ -41,6 +46,15 @@ public class BFvTP {
     }
 
     //Two-Pointer Approach:
+    /**
+     * Checks array contents by sorting copies and comparing their values.
+     * The original arrays are not changed.
+
+     * @param array_1 the first non-null array
+     * @param array_2 the second non-null array
+     * @return true if the contents match, otherwise false
+     */
+
     public static boolean comparrArrayContentTP(
             int[] array_1, int[] array_2) {
 
@@ -70,12 +84,16 @@ public class BFvTP {
 
 
     //Problem 2:
-        //Given a supplied String, determine whether it is a palindrome (case-insensitive).
-        //Note: this should ignore punctuation and spaces.
-        //Compare only those characters that should be considered.
-        //Return true if the String is a palindrome, false otherwise
 
     //Brute Force Approach:
+    /**
+     * Checks whether a string reads the same forwards and backwards.
+     * Includes case differences, spaces and punctuation.
+
+     * @param data the non-null string to check
+     * @return true if the string is a palindrome, otherwise false
+     */
+
     public static boolean palindromeBF(String data) {
         for (int i = 0; i < data.length(); i++) {
             char first = data.charAt(i);
@@ -90,27 +108,39 @@ public class BFvTP {
     }
 
     //Two-Pointer Approach:
-        public static boolean palindromeTP(String data) {
-            int left = 0;
-            int right = data.length() - 1;
-            while (left < right) {
-                if (data.charAt(left) != data.charAt(right)){
-                    return false;
-                }
-                left++;
-                right--;
-            }
-            return true;
-        }
+    /**
+     * Checks for a palindrome by comparing characters from both ends.
+     * Includes case differences, spaces and punctuation.
 
+     * @param data the non-null string to check
+     * @return true if the string is a palindrome, otherwise false
+     */
+
+    public static boolean palindromeTP(String data) {
+        int left = 0;
+        int right = data.length() - 1;
+        while (left < right) {
+            if (data.charAt(left) != data.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
 
     //Problem 3:
-    //Given an array of positive integers and a target value, identify the shortest possible contiguous subarray whose sum is at least the target.
-    //Find the shortest valid subarray fulfilling the requirement.
-    //Where a valid solution is found, return an array containing the identified start and end positions.
-    //Where no valid solution is found, return an array containing 0
 
     //Brute Force Approach:
+    /**
+     * Finds the shortest contiguous subarray with a sum greater than the target.
+     * Keeps the latest answer when shortest lengths are equal.
+
+     * @param input_array the non-null array of positive integers
+     * @param target_sum the positive target sum
+     * @return inclusive start and end indexes, or {0} if none is found
+     */
+
     public static int[] shortestSubarrayBF(
             int[] input_array, int target_sum) {
 
@@ -147,41 +177,55 @@ public class BFvTP {
     }
 
     //Two-Pointer Approach:
-        public static int[] shortestSubarrayTP(
-        int[] input_array, int target_sum) {
+    /**
+     * Finds the shortest subarray with a sum greater than the target.
+     * Uses a sliding window and keeps the earliest equal-length answer.
 
-            int left = 0;
-            long current_sum = 0;
-            int shortest_length = input_array.length + 1;
-            int best_start = -1;
-            int best_end = -1;
+     * @param input_array the non-null array of positive integers
+     * @param target_sum the positive target sum
+     * @return inclusive start and end indexes, or {0} if none is found
+     */
 
-            for (int right = 0; right < input_array.length; right++){
-                current_sum += input_array[right];
-                while (left <= right && current_sum > target_sum) {
-                    int current_length = right - left + 1;
+    public static int[] shortestSubarrayTP(
+    int[] input_array, int target_sum) {
 
-                    if (current_length < shortest_length) {
-                        shortest_length = current_length;
-                        best_start = left;
-                        best_end = right;
-                    }
-                    current_sum -= input_array[left];
-                    left++;
+        int left = 0;
+        long current_sum = 0;
+        int shortest_length = input_array.length + 1;
+        int best_start = -1;
+        int best_end = -1;
+
+        for (int right = 0; right < input_array.length; right++){
+            current_sum += input_array[right];
+            while (left <= right && current_sum > target_sum) {
+                int current_length = right - left + 1;
+
+                if (current_length < shortest_length) {
+                    shortest_length = current_length;
+                    best_start = left;
+                    best_end = right;
                 }
+                current_sum -= input_array[left];
+                left++;
             }
-            if (best_start == -1) {
-                return new int[]{0};
-            }
-            return new int[]{best_start, best_end};
         }
+        if (best_start == -1) {
+            return new int[]{0};
+        }
+        return new int[]{best_start, best_end};
+    }
 
     //Problem 4:
-    //Given a string, reverse only the vowels in the string and return it. Note: Strings cannot be edited in Java. You may wish to convert this to an array of characters before beginning your process, then convert it to a String again at the end.
-    //Vowels should switch places – the first vowel should become the last vowel; the last vowel should become the first vowel.
-    //Only vowels should be reordered. All other characters should remain in their original position.
 
     //Brute Force Approach:
+    /**
+     * Reverses English vowels by storing them and reading them backwards.
+     * Other characters stay in their original positions.
+
+     * @param word the non-null string to process
+     * @return the string with its vowels reversed
+     */
+
     public static String reverseVowelOrderBF(String word) {
         char[] vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
         char[] result_word = word.toCharArray();
@@ -212,39 +256,47 @@ public class BFvTP {
     }
 
     //Two-Pointer Approach:
-        public static String reverseVowelOrderTP(String word) {
-            char[] vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
-            char[] result_word = word.toCharArray();
+    /**
+     * Reverses English vowels by swapping vowels from opposite ends.
+     * Other characters stay in their original positions.
+     *
+     * @param word the non-null string to process
+     * @return the string with its vowels reversed
+     */
 
-            int left = 0;
-            int right = result_word.length - 1;
+    public static String reverseVowelOrderTP(String word) {
+        char[] vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        char[] result_word = word.toCharArray();
 
-            while (left < right) {
-                boolean left_vowel = false;
-                boolean right_vowel = false;
+        int left = 0;
+        int right = result_word.length - 1;
 
-                for (int i = 0; i < vowels.length; i++) {
-                    if (result_word[left] == vowels[i]) {
-                        left_vowel = true;
-                    }
-                    if (result_word[right] == vowels[i]) {
-                        right_vowel = true;
-                    }
+        while (left < right) {
+            boolean left_vowel = false;
+            boolean right_vowel = false;
+
+            for (int i = 0; i < vowels.length; i++) {
+                if (result_word[left] == vowels[i]) {
+                    left_vowel = true;
                 }
-                if (!left_vowel) {
-                    left++;
-                } else if (!right_vowel) {
-                    right--;
-                } else {
-                    char temporary = result_word[left];
-                    result_word[left] = result_word[right];
-                    result_word[right] = temporary;
-                    left++;
-                    right--;
+                if (result_word[right] == vowels[i]) {
+                    right_vowel = true;
                 }
             }
-            return new String(result_word);
+            if (!left_vowel) {
+                left++;
+            } else if (!right_vowel) {
+                right--;
+            } else {
+                char temporary = result_word[left];
+                result_word[left] = result_word[right];
+                result_word[right] = temporary;
+                left++;
+                right--;
+            }
         }
+        return new String(result_word);
+    }
 
 }
 
